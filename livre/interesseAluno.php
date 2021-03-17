@@ -1,5 +1,5 @@
 <?php include '../conexao.php'; ?>
-<!DOCTYPE html>
+<!DOCTYPE html> com alteração
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
