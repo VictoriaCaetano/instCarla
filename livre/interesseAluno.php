@@ -1,5 +1,5 @@
 <?php include '../conexao.php'; ?>
-<!DOCTYPE html> com alteração
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -26,6 +26,7 @@
         <div class="container col-md-5 shadow-lg p-3 mx-auto">
               <section class="jumbotron  ">
                   <form class="form-entrar" action="interesseAluno.php" method="post">
+                      <legend class="text-center">Cantato</legend>
                       <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" >Nome</label>
                           <div class="col-sm-10">
@@ -61,6 +62,7 @@
                       </div>
 
                       <br>    <button class="btn btn-lg btn-warning btn-block" name="Enviar" type="submit">Enviar</button>
+                      <br><p>envie seus cursos de interesse para nosso setor de recrutamento!</p>
                   </form>
               </section>
         </div>
@@ -70,51 +72,43 @@
   </body>
 </html>
 <?php
-if (isset($_POST['Enviar'])) {
-  $cursos = null;
-
-//Verificamos se o índice existe
-if (isset($_POST['arrayInteresses']))
-
-    //Atribuimos a variável todo conteúdo do índice
-    $cursos = $_POST['arrayInteresses'];
-    $nome=$_POST['nome'];
-    $email=$_POST['email'];
-    $cel=$_POST['celular'];
-
-$valores=null;
-
-//Verificamos se a variável não é nula
-if ($cursos !== null){
-
-      //Percorremos todos os conteúdos do array
-      for ($i = 0; $i < count($cursos); $i++){
-        $valores=$valores.",".$cursos[$i];
-            //exibimos o valor atual na tela
-            echo "<p>{$cursos[$i]}</p>";
+      if (isset($_POST['Enviar'])) {
+          echo "<script>
+                    alert('Enviamos seus cursos de interesse para nosso setor de recrutamento! \\n Entraremos em contato com você!');
+                    window.location.href = '../index.php';
+                </script>";
+          $cursos = null;
+          //Verificamos se o índice existe
+          if (isset($_POST['arrayInteresses']))
+          //Atribuimos a variável todo conteúdo do índice
+              $cursos = $_POST['arrayInteresses'];
+              $nome=$_POST['nome'];
+              $email=$_POST['email'];
+              $cel=$_POST['celular'];
+              $valores=null;
+          //Verificamos se a variável não é nula
+          if ($cursos !== null){
+              //Percorremos todos os conteúdos do array
+              for ($i = 0; $i < count($cursos); $i++){
+                  $valores=$valores.",".$cursos[$i];
+                  //exibimos o valor atual na tela
+                  echo "<p>{$cursos[$i]}</p>";
+              }
+                  $queryInsert="INSERT INTO `tb_interesse`(`em_aluno`, `cursos_interesse`, `nm_aluno`, `cel_aluno`)
+                  VALUES ('$email', '$valores', '$nome', '$cel');";
+                  mysqli_query($conexao,$queryInsert);
+              /**
+              * Recebe um parâmetro e exibe o seu conteúdo
+              *
+              * @param  mixed $param
+              * @return void
+              */
+              function dd($param){
+                  echo '<pre>';
+                  print_r($param);
+                  echo '</pre>';
+                die();
+              }
+          }
       }
-
-      $queryInsert="INSERT INTO `tb_interesse`(`em_aluno`, `cursos_interesse`, `nm_aluno`, `cel_aluno`)
-       VALUES ('$email', '$valores', '$nome', '$cel');";
-       mysqli_query($conexao,$queryInsert);
-
-
-
-  /**
-   * Recebe um parâmetro e exibe o seu conteúdo
-   *
-   * @param  mixed $param
-   * @return void
-   */
-      function dd($param)
-      {
-          echo '<pre>';
-          print_r($param);
-          echo '</pre>';
-             die();
-      }
-}
-
-
-}
- ?>
+?>
