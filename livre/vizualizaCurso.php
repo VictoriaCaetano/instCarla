@@ -34,6 +34,9 @@ $result=mysqli_query($conexao,$sqlAcessos);
                 <li class="nav-item">
                     <a class="nav-link text-dark font-weight-bold text-monospace" href="../index.php">Voltar</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark font-weight-bold text-monospace" href="  interesseAluno.php">Quero Ser Aluno!</a>
+                </li>
 
             </ul>
         </div>
