@@ -1,4 +1,13 @@
-<?php include '../conexao.php'; ?>
+<?php
+session_start();
+
+if (isset($_SESSION['AdmLog'])) {
+header("location:../administrador/home.php");
+die();
+}
+
+include '../conexao.php';
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -54,13 +63,16 @@
   </body>
 </html>
 <?php
+
 if (isset($_POST['entrar'])) {
       $usuario=$_POST['usuario'];
       $senha=$_POST['senha'];
       $tipo=3;//tipo de administrador=3
 
+
+
         $sqlLogin="SELECT sn_usuario, user_usuario from tb_usuario A, tb_tipopessoa B where user_usuario='$usuario' and sn_usuario='$senha' AND
-B.id_pessoa=A.id_pessoa and b.id_tipo='$tipo';";
+                    B.id_pessoa=A.id_pessoa and b.id_tipo='$tipo';";
           if($result=mysqli_query($conexao,$sqlLogin)){
               $cont=mysqli_num_rows($result);
               if ($cont==0) {
@@ -68,19 +80,18 @@ B.id_pessoa=A.id_pessoa and b.id_tipo='$tipo';";
                         alert('Infelizmente este usuario não foi encontrado :( tente novamente )');
                         window.location.href='loginAdm.php';
                       </script>";
+
               }else {
+
                 echo "<script>
-                        alert('Login efutuado com secesso! posteriormente sera redirecionado para a pagina inicial do ADMINISTRADOR )');
-                        window.location.href='../administrador/home.php';
+                        alert('Login efutuado com secesso!');
                       </script>";
+                      //Uma nova sessão de usuário é iniciada.
+                        $_SESSION['AdmLog']= true;
+                        header("location:../administrador/home.php");
               }
               //echo "$cont";//variavel que ve se teve algum resultado
             echo "$cont";
           }
       }
-
-
-
-
-
  ?>
