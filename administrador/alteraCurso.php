@@ -5,7 +5,7 @@
 session_start();
 
 if (!isset($_SESSION['AdmLog'])) {
-header("location:../acesso/loginAdm.php")
+header("location:../acesso/loginAdm.php");
 session_destroy();
 }
 if (isset($_GET['AdmLogOut'])) {
