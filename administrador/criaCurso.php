@@ -1,4 +1,16 @@
-<?php include '../conexao.php'; ?>
+<?php
+session_start();
+
+if (!isset($_SESSION['AdmLog'])) {
+header("location:../acesso/loginAdm.php");
+session_destroy();
+}
+if (isset($_GET['AdmLogOut'])) {
+header("location:../index.php");
+session_destroy();
+}
+
+include '../conexao.php'; ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -17,6 +29,10 @@
       <div class="btn-group" role="group" aria-label="Basic example">
         <button type="button" class="btn btn-dark" onclick="window.location.href='homeCursosAdm.php'">voltar</button>
       </div>
+      <form class="d-flex">
+        <button type="button" name="sair"class="btn btn-dark" href="?AdmLogOut" ><a class="text-decoration-none text-white"href="?AdmLogOut">Sair</a></button>
+
+     </form>
 
     </nav>
     <section class="jumbotron text-center text-dark">
@@ -24,7 +40,7 @@
         <h1 class='jumbotron-heading'>Cadastro de Novo Curso</h1>
       </div>
     </section>
-    
+
 
       <section class="jumbotron text-center bg-white">
           <div class="container">

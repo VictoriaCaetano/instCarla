@@ -1,5 +1,29 @@
-<?php include '../conexao.php';
-$posicao=0;?>
+<?php
+session_start();
+
+if (!isset($_SESSION['AdmLog'])) {
+header("location:../acesso/loginAdm.php");
+session_destroy();
+}
+if (isset($_GET['AdmLogOut'])) {
+header("location:../index.php");
+session_destroy();
+}
+
+ include '../conexao.php';
+$posicao=0;
+
+
+/* esse bloco de código em php verifica se existe a sessão, pois o usuário pode
+ simplesmente não fazer o login e digitar na barra de endereço do seu navegador
+o caminho para a página principal do site (sistema), burlando assim a obrigação de
+fazer um login, com isso se ele não estiver feito o login não será criado a session,
+então ao verificar que a session não existe a página redireciona o mesmo
+ para a index.php.*/
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -22,7 +46,8 @@ $posicao=0;?>
       </div>
       <form class="d-flex">
         <button type="button" class="btn btn-dark" onclick="window.location.href='teste.php'">perfil</button>
-        <button type="button" class="btn btn-dark" onclick="window.location.href='teste.php'">sair</button>
+        <button type="button" name="sair"class="btn btn-dark" href="?AdmLogOut" ><a class="text-decoration-none text-white"href="?AdmLogOut">Sair</a></button>
+
      </form>
     </nav>
 
