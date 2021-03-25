@@ -63,6 +63,7 @@ include '../conexao.php'; ?>
                             <label class="col-sm-2 col-form-label" >Professor Responsável</label>
                             <div class="col-sm-10">
                                 <input name="professor" type="number" class="form-control" required>
+                                <p>informe o código</p>
                             </div>
                         </div>
 
@@ -132,8 +133,20 @@ if (isset($_POST['Enviar'])) {
                  VALUES ('$professor','$nome', '$descricao', '$horas', '$introducao', '$novo_nome');";
                  mysqli_query($conexao,$queryInsert);
 
+
                 $sql_code = "INSERT INTO tb_arquivo (codigo, arquivo, data, nm_curso) VALUES(null, '$novo_nome', NOW(), '$nome')";
                 mysqli_query($conexao,$sql_code);
+
+                      $queryId =sprintf("SELECT id_curso FROM tb_curso1 where nm_curso='$nome';");
+                      $exec2=mysqli_query($conexao,$queryId);
+                       while ($dados2=mysqli_fetch_array($exec2)) {
+                         $curso=$dados2['id_curso'];
+                         $queryInsert="INSERT INTO `tb_contaacesso`(`numAcesso`, `id_curso`) VALUES (0,'$curso');";
+                          mysqli_query($conexao,$queryInsert);
+                       }
+
+
+
 
                  }else {
                   echo "curso já cadastrado";

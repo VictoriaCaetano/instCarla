@@ -3,7 +3,7 @@
 session_start();
 
 if (!isset($_SESSION['AdmLog'])) {
-header("location:../acesso/loginAdm.php")
+header("location:../acesso/loginAdm.php");
 session_destroy();
 }
 if (isset($_GET['AdmLogOut'])) {
@@ -12,11 +12,9 @@ session_destroy();
 }
 
  include '../conexao.php';
-if (isset($_POST['numero'])) {
-  $numero=$_POST['numero'];
-  $curso=$_POST['curso'];
-  echo "$numero";
-  echo "$curso";
+if (isset($_POST['modulo'])) {
+  $modulo=$_POST['modulo'];
+  echo "$modulo";
 }
 ?>
 <!DOCTYPE html>

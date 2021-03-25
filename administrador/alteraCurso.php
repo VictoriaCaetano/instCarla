@@ -14,7 +14,12 @@ session_destroy();
 }
 
  include '../conexao.php';
+
 $codigo=$_POST['codigo'];
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -48,35 +53,56 @@ $codigo=$_POST['codigo'];
   </nav>
 
 
-  <section class="jumbotron text-center text-dark">
+  <section class="jumbotron text-dark">
     <div class="container">
-      <?php
-      while ($dados=mysqli_fetch_array($exec)) {echo "  <h1 class='jumbotron-heading'>".$dados['nm_curso']."</h2>
-          <h3 class='text-dark  '>".$dados['intro_curso']."</h3><br>
-                  <h3 class='text-muted'>".$dados['desc_curso']."</h3>
-                  <p class='text-start'>Carga Horária - ".$dados['ch_curso']." horas</p>";
-                  $curso=$dados['nm_curso'];}
-       ?>
+      <div class="row">
+   <div class="col">
+     <?php
+     while ($dados=mysqli_fetch_array($exec)) {echo "  <h1 class='jumbotron-heading text-start'>".$dados['nm_curso']."</h2>
+         <h3 class='text-dark  '>".$dados['intro_curso']."</h3><br>
+                 <h3 class='text-muted'>".$dados['desc_curso']."</h3>
+                 <p class='text-start'>Carga Horária - ".$dados['ch_curso']." horas</p>";
+                 $curso=$dados['nm_curso'];}
 
-    </div>
-    <div class="text-end">
+      ?>
+   </div>
+   <div class="col col-lg-2 text-end ">
+         <button type="button" class="btn btn-dark mx-auto" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+             <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'>
+             <path d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z'/>
+             </svg>
+          alterar
+         </button>
+         <?php
+             echo "<form class='form-signin text-end ' action='alteraCurso.php' method='post'>
+                       <button class='btn btn-danger' value=".$codigo." name='excluir' type='submit'>
+                           <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'>
+                           <path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'/>
+                           <path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'/>
+                           </svg>
+                        excluir
+                       </button>
+                   </form>";
+             if (isset($_POST['excluir'])) {
+                 $id=$_POST['excluir'];
 
-    <button class='btn btn-danger' value=".$dados['id_interesse']." name='codigo' type='submit'>
-   <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'>
-      <path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'/>
-      <path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'/>
-      </svg>
-  excluir
-  </button>
+                   $queryDelet="DELETE FROM tb_curso1 WHERE id_curso = '$id';";
+                   mysqli_query($conexao,$queryDelet);
+
+                   echo "<script> alert('excluido com sucesso'); </script>";
+                   header("location:homeCursosAdm.php");
+             }
+         ?>
+       </div>
 
 
-   <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'>
-     <path d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z'/>
-     </svg>
-     Editar Curso sdf
-</button>
-    </div>
+  </div>
+
+ </div>
+
+
+
+      </div>
   </section>
 
 
@@ -88,32 +114,32 @@ $codigo=$_POST['codigo'];
                             $querySelectModulo =sprintf("SELECT nm_modulo, id_modulo, desc_modulo FROM tb_modulo1 where id_curso='$codigo';");
                                     $exec2=mysqli_query($conexao,$querySelectModulo);
                              while ($dados2=mysqli_fetch_array($exec2)) {
+
                               echo "<tr><div class='col-sm-4'>
                                   <div class='card shadow-lg p-3'>
                                       <div class='card-body'>
                                        <h5 class='card-title'>".$dados2['nm_modulo']."</h5>
                                           <p>".$dados2['desc_modulo']."<p>";
 
+
+
                                           $modulo=$dados2['id_modulo'];
+                                        
                                                 $querySelectAula=sprintf("SELECT id_aula, nm_aula FROM tb_aula1 where id_modulo='$modulo';");
                                                         $exec3=mysqli_query($conexao,$querySelectAula);
                                                      while ($dados3=mysqli_fetch_array($exec3)) {
                                                           echo  "
                                                           <a class='link-dark' href='../index.php'> <h4 class='text-start href='../index.php'>".$dados3['nm_aula']."</h4> </a>
-
                                                           ";
                                                      }
                                       echo "
 
-                                      <form class='form-signin' action='alteraModulo.php' method='post'>
-                                      <label name='curso' value=".$codigo."></label>
-                                      <button class='btn btn-dark' value=".$dados2['id_modulo']." name='numero' type='submit'>
-                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'>
-                                        <path d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z'/>
-                                        </svg>
-                                    Editar
-                                    </button>
-                                      </form>
+                                      <button type='button' class='btn btn-dark mx-auto' data-bs-toggle='modal' data-bs-target='#staticBackdrop'>
+                                          <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'>
+                                          <path d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z'/>
+                                          </svg>
+                                       alterar
+                                      </button>
                                       </div>
                                   </div><br>
                               </div>
@@ -153,7 +179,7 @@ $codigo=$_POST['codigo'];
       <div class="modal-body">
           <?php echo "$codigo";
           echo "$curso";?>
-          <form class="form-entrar" action="back.php" method="post" enctype="multipart/form-data">
+          <form class="form-entrar" action="backend.php" method="post" enctype="multipart/form-data">
             <p class="text-center">Insira as informações que deseja alterar sobre curso <?php echo "$curso"; ?> </p>
             <div class="row">
                 <div class="col">
@@ -163,7 +189,7 @@ $codigo=$_POST['codigo'];
                     <input type="text"  name="nome" class="form-control">
                 </div>
                 <div class="col">
-                    <button class="btn btn-warning " name="altNome" type="submit">alterar</button> <br><br>
+                    <button class="btn btn-warning " name="altNome" type="submit" <?php echo "value='$codigo'"; ?>>alterar</button> <br><br>
                 </div>
             </div>
             <div class="row">
@@ -174,7 +200,7 @@ $codigo=$_POST['codigo'];
                     <input type="text"  name="desc" class="form-control" >
                 </div>
                 <div class="col">
-                    <button class="btn btn-warning " name="altDesc" type="submit">alterar</button> <br><br>
+                    <button class="btn btn-warning " name="altDesc" type="submit" <?php echo "value='$codigo'"; ?>>alterar</button> <br><br>
                 </div>
             </div>
             <div class="row">
@@ -185,7 +211,7 @@ $codigo=$_POST['codigo'];
                     <input type="text"  name="intro" class="form-control" >
                 </div>
                 <div class="col">
-                    <button class="btn btn-warning " name="altIntro" type="submit">alterar</button> <br><br>
+                    <button class="btn btn-warning " name="altIntro" type="submit"  <?php echo "value='$codigo'"; ?>>alterar</button> <br><br>
                 </div>
             </div>
             <div class="row">
@@ -196,7 +222,7 @@ $codigo=$_POST['codigo'];
                     <input type="text"  name="horas" class="form-control">
                 </div>
                 <div class="col">
-
+                  <button class="btn btn-warning " name="altHoras" type="submit"  <?php echo "value='$codigo'"; ?>>alterar</button> <br><br>
                 </div>
             </div>
                 <div class="row">
@@ -204,10 +230,10 @@ $codigo=$_POST['codigo'];
                       <label for="formFileSm" class="form-label">Imagem:</label>
                   </div>
                   <div class="col-6">
-                        <input class="form-control form-control-sm"  type="file" name="arquivo" >
+                      <input class="form-control form-control-sm"  type="file" name="arquivo" required>
                   </div>
                   <div class="col">
-                      <button class="btn btn-warning " name="imagem" type="submit">alterar</button> <br><br>
+                      <button class="btn btn-warning " name="AltImagem" type="submit"  <?php echo "value='$codigo'"; ?>>alterar</button> <br><br>
                   </div>
                     <p class="text-center">apenas imagens com extensão .jpg serão aceitas </p>
                 </div>
@@ -216,8 +242,8 @@ $codigo=$_POST['codigo'];
           </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+
       </div>
     </div>
   </div>
