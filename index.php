@@ -62,8 +62,8 @@ como missão <strong>formar profissionais de excelência </strong>e oportunizar 
           <div class="row">
           <!--daqui pra cima é dados do banco-->
           <?php header("Content-type: text/html; charset=utf-8");
-          $querySelect =sprintf("SELECT id_curso, nm_curso, img_curso, intro_curso FROM tb_curso1;");
-                  $exec=mysqli_query($conexao,$querySelect);
+          $sqlAcessos="select A.id_curso, nm_curso, img_curso, intro_curso from tb_curso1 A, tb_contaacesso B where A.id_curso=B.id_curso order by B.numAcesso desc;";
+                  $exec=mysqli_query($conexao,$sqlAcessos);
           while ($dados=mysqli_fetch_array($exec)) {
             echo "<tr><div class='col-sm-4'>
                 <div class='card shadow-lg p-3'>
