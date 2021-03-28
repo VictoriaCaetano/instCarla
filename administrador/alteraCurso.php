@@ -104,7 +104,14 @@ $codigo=$_POST['codigo'];
 
       </div>
   </section>
+  <div class="container">
+    <p class=" float-right xt-dark font-weight-bold text-monospace">MODULO</p>
+    <div class="float-right"><svg style="fill:#DBB522;" onclick="window.location.href='criaModulo.php'" xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+  </svg>
+  </div><br>
 
+  </div>
 
                     <section class="jumbotron text-center bg-white">
                       <div class="container">
@@ -119,12 +126,14 @@ $codigo=$_POST['codigo'];
                                   <div class='card shadow-lg p-3'>
                                       <div class='card-body'>
                                        <h5 class='card-title'>".$dados2['nm_modulo']."</h5>
-                                          <p>".$dados2['desc_modulo']."<p>";
+                                       <p> código: - ".$dados2['id_modulo']."<p>
+                                          <p>".$dados2['desc_modulo']."<p>
+                                          ";
 
 
 
                                           $modulo=$dados2['id_modulo'];
-                                        
+
                                                 $querySelectAula=sprintf("SELECT id_aula, nm_aula FROM tb_aula1 where id_modulo='$modulo';");
                                                         $exec3=mysqli_query($conexao,$querySelectAula);
                                                      while ($dados3=mysqli_fetch_array($exec3)) {
@@ -230,7 +239,7 @@ $codigo=$_POST['codigo'];
                       <label for="formFileSm" class="form-label">Imagem:</label>
                   </div>
                   <div class="col-6">
-                      <input class="form-control form-control-sm"  type="file" name="arquivo" required>
+                      <input class="form-control form-control-sm"  type="file" name="arquivo" >
                   </div>
                   <div class="col">
                       <button class="btn btn-warning " name="AltImagem" type="submit"  <?php echo "value='$codigo'"; ?>>alterar</button> <br><br>

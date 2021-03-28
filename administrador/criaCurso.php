@@ -62,7 +62,7 @@ include '../conexao.php'; ?>
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" >Professor Responsável</label>
                             <div class="col-sm-10">
-                                <input name="professor" type="number" class="form-control" required>
+                                <input name="professor" type="number" class="form-control" required placeholder="ainda não tem? use o código padrão : 1">
                                 <p>informe o código</p>
                             </div>
                         </div>
