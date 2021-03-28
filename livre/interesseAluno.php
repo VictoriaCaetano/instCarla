@@ -26,7 +26,7 @@
         <div class="container col-md-5 shadow-lg p-3 mx-auto">
               <section class="jumbotron  ">
                   <form class="form-entrar" action="interesseAluno.php" method="post">
-                      <legend class="text-center">Cantato</legend>
+                      <legend class="text-center">Contato</legend>
                       <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" >Nome</label>
                           <div class="col-sm-10">
