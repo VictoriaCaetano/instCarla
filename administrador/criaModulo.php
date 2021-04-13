@@ -62,7 +62,7 @@ include '../conexao.php'; ?>
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" >Curso</label>
                               <div class="col-sm-10">
-                            <select class="form-select" aria-label=".form-select-lg example">
+                            <select  name="curso" class="form-select" aria-label=".form-select-lg example">
                               <?php
                               $sql1="SELECT id_curso, nm_curso FROM tb_curso1";
                               $resultado=$conexao->query($sql1);
@@ -99,10 +99,9 @@ if (isset($_POST['Enviar'])) {
     $result=mysqli_query($conexao,$sqlModulo);
      $cont=mysqli_num_rows($result);
       if($cont==0){
-
-         $sql="INSERT INTO `tb_modulo1`(`nm_modulo`, `id_curso`, `desc_modulo`) VALUES ('$nome', '$curso', '$desc');";
-          mysqli_query($conexao,$sql);
-
-}
+        echo "$nome";
+        $queryInsert="insert into tb_modulo1 (nm_modulo, id_curso, desc_modulo) values ('$nome','$curso','$desc')";
+         mysqli_query($conexao,$queryInsert);
+      }
 }
 ?>

@@ -16,6 +16,8 @@ if (isset($_POST['modulo'])) {
   $modulo=$_POST['modulo'];
   echo "$modulo";
 }
+
+include '../conexao.php';
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -41,24 +43,127 @@ if (isset($_POST['modulo'])) {
    </form>
   </nav>
 
-
   <section class="jumbotron text-center text-dark">
     <div class="container">
-
+      <h1 class='jumbotron-heading'>Aterar Modulo</h1>
     </div>
   </section>
-                    <section class="jumbotron text-center bg-white">
-                      <div class="container">
 
-                          <div class="row">
 
-                          </div>
+    <section class="jumbotron text-center bg-white">
+        <div class="container">
+            <div class="container col-md-6 shadow-lg p-3 mx-auto">
+                <section class="jumbotron  ">
+                  <label for="">a qual curso o módulo pertence?</label>
+                  <div class='row'>
+                      <div class='col'>
+                        <label class='col-sm-2 col-form-label' >Curso</label>
+                      </div>
+                      <div class='col-6'>
+                        <form class="" action='alteraModulo.php' method='post'>
+                          <select  name='curso' class='form-select' aria-label='.form-select-lg example'>
+                            <?php
+                            $sql1="SELECT id_curso, nm_curso FROM tb_curso1";
+                            $resultado1=$conexao->query($sql1);
+                            while($dados1 = $resultado1->fetch_assoc()){
+                                echo "<option value=".$dados1['id_curso'].">".$dados1['nm_curso']."</option>";
+                            }
+                            ?>
+                        </select>
 
                       </div>
-                    </section>
+                      <div class='col'>
+                          <button class='btn btn-warning ' name='enviarCurso' type='submit'>buscar</button> <br><br>
+                          </form>
+                      </div>
+                  </div>
+                          <?php
+                          if (isset($_POST['enviarCurso'])) {
+                            $idCurso=$_POST['curso'];
+                            echo "
+
+                            <div class='row'>
+                                <div class='col'>
+                                  <label class='col-sm-2 col-form-label' >Modulo</label>
+                                </div>
+                                <div class='col-6'>
+                                  <form class='' action='alteraModulo.php' method='post'>
+                                    <select  name='modulo' class='form-select' aria-label='.form-select-lg example'>
+                                    ";
+                                    $sql2="SELECT id_modulo, nm_modulo FROM tb_modulo1 where id_curso='$idCurso'";
+                                    $resultado2=$conexao->query($sql2);
+                                    while($dados2 = $resultado2->fetch_assoc()){
+                                        echo "<option value=".$dados2['id_modulo'].">".$dados2['nm_modulo']."</option>";
+                                    }
+                                echo "string  </select>
+
+                                </div>
+                                <div class='col'>
+
+                                </div>
+                            </div><br>";
+
+
+                        echo "<section class=' bg-white'><br>
+                        <p>novos valores</p>
+                            <div class='row'>
+                                      <div class='col'>
+                                        <label class='col-sm-2 col-form-label' >Nome</label>
+                                      </div>
+                                      <div class='col-6'>
+                                     <input type='text' name='nomeModulo' class='form-control'>
+
+                                      </div>
+                                      <div class='col'>
+                                      <button class='btn btn-warning ' name='enviarNome' type='submit'>alterar</button> <br><br>
+                                      </div>
+                                  </div><br>
+                                  <div class='row'>
+                                      <div class='col'>
+                                        <label class='col-sm-2 col-form-label' >Descrição</label>
+                                      </div>
+                                      <div class='col-6'>
+                                   <textarea type='text' name='descModulo' class='form-control'></textarea>
+
+
+                                      </div>
+                                      <div class='col'>
+                                        <button class='btn btn-warning ' name='enviarDesc' type='submit'>alterar</button> <br><br>
+                                      </div>
+                                  </div><br>
+
+                                    </form>
+                            </section>";
+                            }
+
+                            if (isset($_POST['enviarNome'])) {
+                              $idModulo=$_POST['modulo'];
+                              $nome=$_POST['nomeModulo'];
+                              $sql3="update tb_modulo1 set nm_modulo='$nome'where id_modulo='$idModulo'";
+                              $resultado3=$conexao->query($sql3);
+                            echo "alterado";
+                            }
+                            if (isset($_POST['enviarDesc'])) {
+                              $idModulo=$_POST['modulo'];
+                              $desc=$_POST['descModulo'];
+                              $sql4="update tb_modulo1 set desc_modulo='$desc' where id_modulo='$idModulo'";
+                              $resultado4=$conexao->query($sql4);
+                            echo "alterada";
 
 
 
+                            }
+                           ?>
+
+                        </div>
+
+                        </div>
+                  </div>
+
+                </section>
+            </div>
+        </div>
+    </section>
 
 
 <footer>
