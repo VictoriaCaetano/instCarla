@@ -1,4 +1,13 @@
-<?php include '../conexao.php'; ?>
+
+<?php
+session_start();
+
+if (isset($_SESSION['AlunoLog'])) {
+header("location:../aluno/home.php");
+die();
+}
+
+include '../conexao.php'; ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -83,8 +92,11 @@ B.id_pessoa=A.id_pessoa and b.id_tipo=1;";
                   echo "$cont";
                 }
             }else if ($tipo==2) {
-              $sqlLogin="SELECT sn_usuario, user_usuario from tb_usuario A, tb_tipopessoa B where user_usuario='$usuario' and sn_usuario='$senha' AND
+              $sqlLogin="SELECT A.sn_usuario, A.user_usuario, A.id_pessoa from tb_usuario A, tb_tipopessoa B where user_usuario='$usuario' and sn_usuario='$senha' AND
 B.id_pessoa=A.id_pessoa and b.id_tipo=2;";
+
+
+
 
 if($result=mysqli_query($conexao,$sqlLogin)){
     $cont=mysqli_num_rows($result);
@@ -94,10 +106,17 @@ if($result=mysqli_query($conexao,$sqlLogin)){
               window.location.href='loginUsuario.php';
             </script>";
     }else {
-      echo "<script>
-              alert('Login efutuado com secesso! posteriormente sera redirecionado para a pagina inicial do aluno )');
-              window.location.href='../index.php';
-            </script>";
+
+                                            echo "<script>
+                                                    alert('Login efutuado com secesso!');
+                                                  </script>";
+                                                  //Uma nova sessão de usuário é iniciada.
+                                                    $_SESSION['AlunoLog']= true;
+                                                    $exec=mysqli_query($conexao,$sqlLogin);
+                                                     while ($dados=mysqli_fetch_array($exec)){
+                                                         $_SESSION['Usuario']= $dados['id_pessoa'] ;
+                                                     }
+                                                    header("location:../aluno/home.php");
     }
     //echo "$cont";//variavel que ve se teve algum resultado
   echo "$cont";
