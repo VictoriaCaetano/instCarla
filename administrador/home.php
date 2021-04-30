@@ -12,6 +12,7 @@ session_destroy();
 
  include '../conexao.php';
 $posicao=0;
+$posicao1=0;
 
 
 /* esse bloco de código em php verifica se existe a sessão, pois o usuário pode
@@ -41,7 +42,7 @@ então ao verificar que a session não existe a página redireciona o mesmo
     <nav class="navbar navbar-dark bg-dark">
       <div class="btn-group" role="group" aria-label="Basic example">
         <button type="button" class="btn btn-dark" onclick="window.location.href='teste.php'">Professores</button>
-        <button type="button" class="btn btn-dark" onclick="window.location.href='teste.php'">Alunos</button>
+        <button type="button" class="btn btn-dark" onclick="window.location.href='homeAlunosAdm.php'">Alunos</button>
         <button type="button" class="btn btn-dark" onclick="window.location.href='homeCursosAdm.php'">Cursos</button>
       </div>
       <form class="d-flex">
@@ -85,27 +86,28 @@ então ao verificar que a session não existe a página redireciona o mesmo
               </table>
         </div>
         <div class="col"><br>
-          <h2 class="jumbotron-heading">Cursos Mais acessados </h2>
-          <h3 class="text-muted">Na pagina Inicial</h3>
+          <h2 class="jumbotron-heading">Cursos com Mais Alunos </h2>
+          <h3 class="text-muted">Matriculados</h3>
               <table class="table">
                   <thead>
                       <tr>
                           <th scope="col"></th>
                           <th scope="col">Curso</th>
-                          <th scope="col">numero de acessos</th>
+                          <th scope="col">Alunos</th>
                       </tr>
                   </thead>
                   <tbody>
 
-                      <?php   $querySelect =sprintf("SELECT numAcesso, nm_curso FROM tb_contaacesso A, tb_curso1 B where B.id_curso=A.id_curso  ORDER BY numAcesso DESC LIMIT 5;");
+                      <?php   $querySelect =sprintf("SELECT count(A.id_pessoa) C, B.nm_curso from tb_pessoacurso1 A, tb_curso1 B GROUP by B.nm_curso DESC LIMIT 5;");
                               $exec=mysqli_query($conexao,$querySelect);
                               while ($dados=mysqli_fetch_array($exec)) {
-                              $posicao=$posicao+1;
+                              $posicao1=$posicao1+1;
                               echo "
                               <tr>
-                                  <th class='table-warning'scope='row'>".$posicao."</th>
+                                  <th class='table-warning'scope='row'>".$posicao1."</th>
+
                                   <td  class='table-warning'>".$dados['nm_curso']."</td>
-                                  <td  class='table-warning'>".$dados['numAcesso']."</td>
+                                    <td  class='table-warning'>".$dados['C']."</td>
                               </tr>
                               ";
                               }
