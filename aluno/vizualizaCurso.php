@@ -99,8 +99,8 @@ $curso=$_POST['codigo'];
                                         $exec3=mysqli_query($conexao,$querySelectAula);
                                      while ($dados3=mysqli_fetch_array($exec3)) {
                                           echo  "
-                                            <form action='assistirAula.php' method='post'>
-                                            <button type='submit'class='btn btn-white' name='aula' value=".$dados3['id_aula']."><p class='fs- fw-bold'>".$dados3['nm_aula']."</p></button>
+                                            <form class='text-start' action='assistirAula.php' method='post'>
+                                            <button type='submit'class='btn btn-white text-start' name='aula' value=".$dados3['id_aula']."><p class='fs- fw-bold'>".$dados3['nm_aula']."</p></button>
                                           </form>
 
 

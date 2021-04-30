@@ -22,14 +22,9 @@ session_destroy();
  include '../conexao.php';
 $posicao=0;
 
- $aula=$_POST['aula'];
-//variavel, aula clicada
+ $aula=$_POST['aula']; //variavel, aula clicada
 
-
-  ?>
-</section>
-
-
+ ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
  <head>
@@ -58,38 +53,19 @@ $posicao=0;
      <div class="container">
        <div class="row">
         <div class="col-md-8">
-          <?php $querySelectAula =sprintf("SELECT nm_aula FROM tb_aula1 where id_aula='$aula';");
-                   $exec3=mysqli_query($conexao,$querySelectAula);
-
-                   while ($dados3=mysqli_fetch_array($exec3)) {
-                     echo "<h2 class='text-start'>".$dados3['nm_aula']." </h2>";
-                   } ?>
-
+        <h2 class="text-start">nome da aula </h2>
         </div>
         <div class="col-6 col-md-4">
-
           <h2>material complementar</h2>
         </div>
       </div>
        <div class="row">
        <div class="col-8 bg-dark text-center">
-         <?php
-         $querySelectVideo =sprintf("SELECT video_aula FROM tb_aula1 where id_aula='$aula';");
-                  $exec2=mysqli_query($conexao,$querySelectVideo);
+<br><video width='640' height='360'  class='video' src='../videos/'controls controlsList='nodownload'></video><br><br>
 
-                  while ($dados2=mysqli_fetch_array($exec2)) {
-                    echo "<br><video width='640' height='360'  class='video' src='../videos/".$dados2['video_aula']."'controls controlsList='nodownload'></video><br><br>";
-                  }
-         ?>
        </div>
-       <div class="col-4 bg-white text-start">
-        <?php
-        $querySelectMaterial =sprintf("SELECT link_material, desc_material FROM tb_material1 where id_aula='$aula';");
-                 $exec4=mysqli_query($conexao,$querySelectMaterial);
-
-                 while ($dados4=mysqli_fetch_array($exec4)) {
-                   echo "<br><a href=../material/".$dados4['link_material'].">".$dados4['desc_material']."</a><br>";
-                 } ?>
+       <div class="col-4 bg-white">
+         links
        </div>
      </div>
      <div class="row bg-white">
@@ -107,47 +83,26 @@ $posicao=0;
 
    </section>
    <section>
-      <form class="" action="assistirAula.php" method="post">
-          <div class="container">
-            <div class="input-group mb-3">
-                <input type="text" name="Ncomentario" class="form-control" placeholder="deixe aqui seu comentário" aria-label="Recipient's username" aria-describedby="button-addon2">
-                <button class="btn btn-outline-secondary"  type="submit" name="EnviarNcomentario" id="button-addon2">Enviar</button>
-            </div><br>
-          </div>
-      </form>
+     <div class="container">
 
+     <div class="input-group mb-3">
+       <input type="text" class="form-control" placeholder="deixe aqui seu comentário" aria-label="Recipient's username" aria-describedby="button-addon2">
+       <button class="btn btn-outline-secondary" type="button" id="button-addon2">Enviar</button>
+     </div><br>
+   </section>
    <section>
      <div class="container">
 
        <div class="row">
       <div class="col">
+        <?php $querySelectComentario =sprintf("SELECT A.nm_pessoa, B.text_comentario FROM tb_comentario B, tb_pessoa A where A.id_pessoa='$idPessoa' and B.id_pessoa='$idPessoa';");
+                  $exec=mysqli_query($conexao,$querySelect);
 
-
-
-
-
-        <?php
-
-
-        $querySelectComentario =sprintf("SELECT A.nm_pessoa, B.text_comentario FROM tb_comentario B, tb_pessoa A where A.id_pessoa='$idPessoa' and B.id_pessoa='$idPessoa' and B.id_aula='$aula';");
-                  $exec1=mysqli_query($conexao,$querySelectComentario);
-
-                  while ($dados1=mysqli_fetch_array($exec1)) {
+                  while ($dados=mysqli_fetch_array($exec)) {
                     echo "  <h6>".$dados1['nm_pessoa']."</h6>
                       <p>".$dados1['text_comentario']."</p>
                       <br>";
                   }
-
-
-                  if (isset($_POST['EnviarNcomentario'])) {
-                        $comentario=$_POST['Ncomentario'];
-                        $pessoa=$idPessoa;
-
-                        $sqlInsertComentario="insert into tb_comentario (text_comentario, id_pessoa, id_aula) values ('$comentario','$pessoa', '$aula1');";
-                        mysqli_query($conexao,$sqlInsertComentario);
-
-                    }
-
          ?>
 
       </div>

@@ -51,18 +51,32 @@ então ao verificar que a session não existe a página redireciona o mesmo
         <button type="button" class="btn btn-dark" onclick="window.location.href='../index.php'">voltar</button>
       </div>
       <form class="d-flex">
-        <button type="button" class="btn btn-dark" onclick="window.location.href='teste.php'">perfil</button>
+        <button type="button" class="btn btn-dark" onclick="window.location.href='vizualizaPerfil.php'">perfil</button>
         <button type="button" name="sair"class="btn btn-dark" href="?AlunoLogOut" ><a class="text-decoration-none text-white"href="?AlunoLogOut">Sair</a></button>
 
      </form>
     </nav>
-
+    <section class="jumbotron text-center">
+      <div class="container">
+        <h1 class="fs-1 fw-bold fst-italic">
+          <?php
+          $sqlNome="select nm_pessoa from tb_pessoa where id_pessoa='$idPessoa';";
+                  $exec5=mysqli_query($conexao,$sqlNome);
+          while ($dados5=mysqli_fetch_array($exec5)) {
+            $nome=$dados5['nm_pessoa'];
+          echo "Olá  ".$nome;
+          }
+           ?>
+        </h2>
+      </div>
+    </section>
     <section class="jumbotron text-center bg-white">
           <div class="container">
               <div class="row">
+
               <!--daqui pra cima é dados do banco-->
               <?php header("Content-type: text/html; charset=utf-8");
-              $sqlCursos="select A.id_curso, nm_curso, img_curso, intro_curso from tb_curso1 A, tb_pessoacurso1 C where A.id_curso=C.id_curso and C.id_pessoa='$idPessoa' ;";
+              $sqlCursos="select A.id_curso, nm_curso, img_curso, intro_curso from tb_curso1 A, tb_pessoacurso1 C where A.id_curso=C.id_curso and C.id_pessoa='$idPessoa' and C.st_matricula=1;";
                       $exec=mysqli_query($conexao,$sqlCursos);
               while ($dados=mysqli_fetch_array($exec)) {
                 echo "<tr><div class='col-sm-4'>
