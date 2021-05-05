@@ -68,7 +68,11 @@ session_destroy();
 
                ?>
 
-              <a href="#">Escolher foto</a>
+               <button type='button' class='btn btn-white' data-bs-toggle='modal' data-bs-target='#exampleModal7'>escolher foto
+               <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'>
+               <path d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z'/>
+               </svg>
+               </button>
              </div>
              <div class="col ">
                <div class="my-3 p-3">
@@ -214,6 +218,45 @@ session_destroy();
                where id_pessoa='$idPessoa' and sn_usuario='$atual';";
                mysqli_query($conexao,$queryUpdate);
             }
+
+          } ?>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModal7" tabindex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Alterar Nome de Usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="" action="vizualizaPerfil.php" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label for="formFileSm" class="form-label"></label>
+              <input class="form-control form-control-sm"  type="file" name="arquivo" required>
+                <p>deve ser tamanho 1:1 e de extensão .jpg</p>
+            </div>
+            <button  class=" btn-dark"type="submit" name="enviarImagem">alterar imagem de perfil</button>
+          </form>
+          <?php if (isset($_POST['enviarImagem'])) {
+
+            $extensao = strtolower(substr($_FILES['arquivo']['name'], -4)); //pega a extensao do arquivo
+            $novo_nome = md5(time()) . $extensao; //define o nome do arquivo
+            $diretorio = "../imagens/"; //define o diretorio para onde enviaremos o arquivo
+
+            move_uploaded_file($_FILES['arquivo']['tmp_name'], $diretorio.$novo_nome); //efetua o upload
+
+            $sql_code = "INSERT INTO tb_arquivo (codigo, arquivo, data) VALUES(null, '$novo_nome', NOW())";
+            mysqli_query($conexao,$sql_code);
+
+            $queryUpdate="UPDATE tb_usuario set imagem_usuario = '$novo_nome'
+             where id_pessoa='$idPessoa';";
+             mysqli_query($conexao,$queryUpdate);
 
           } ?>
         </div>

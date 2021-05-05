@@ -22,9 +22,12 @@ session_destroy();
  include '../conexao.php';
 $posicao=0;
 
- $aula=$_POST['aula'];
-//variavel, aula clicada
 
+//variavel, aula clicada
+if (isset($_POST['aula'])) {
+   $_SESSION['aula']= $_POST['aula'] ;
+}
+$aula=$_SESSION['aula'];
 
   ?>
 </section>
@@ -95,7 +98,13 @@ $posicao=0;
      <div class="row bg-white">
 
      <div class="col-8 bg-white text-start"><br><br>
-        <p>descricao da aula</p>
+       <?php
+       $querySelectDesc=sprintf("SELECT desc_aula FROM tb_aula1 where id_aula='$aula';");
+                $exec5=mysqli_query($conexao,$querySelectDesc);
+
+                while ($dados5=mysqli_fetch_array($exec5)) {
+                  echo "<p>".$dados5['desc_aula']."</p>";
+                } ?>
      </div>
    </div>
 
@@ -143,8 +152,9 @@ $posicao=0;
                         $comentario=$_POST['Ncomentario'];
                         $pessoa=$idPessoa;
 
-                        $sqlInsertComentario="insert into tb_comentario (text_comentario, id_pessoa, id_aula) values ('$comentario','$pessoa', '$aula1');";
+                        $sqlInsertComentario="insert into tb_comentario (text_comentario, id_pessoa, id_aula) values ('$comentario','$pessoa', '$aula');";
                         mysqli_query($conexao,$sqlInsertComentario);
+
 
                     }
 
