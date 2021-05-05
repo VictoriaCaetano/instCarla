@@ -51,7 +51,7 @@ include '../conexao.php';
             </div>
 
           </div>
-    <a class="link text-warning font-weight-bold text-monospace" href="RecuperaSenha.php">Recuperar Senha...</a>
+    <a class="link text-warning font-weight-bold text-monospace" href="recuperaSenhaAdm.php">Recuperar Senha...</a>
         <br>    <button class="btn btn-lg btn-warning btn-block" name="entrar"type="submit">Sign in</button>
           </form>
             </section>
@@ -71,7 +71,7 @@ if (isset($_POST['entrar'])) {
 
 
 
-        $sqlLogin="SELECT sn_usuario, user_usuario from tb_usuario A, tb_tipopessoa B where user_usuario='$usuario' and sn_usuario='$senha' AND
+        $sqlLogin="SELECT B.id_pessoa, sn_usuario, user_usuario from tb_usuario A, tb_tipopessoa B where user_usuario='$usuario' and sn_usuario='$senha' AND
                     B.id_pessoa=A.id_pessoa and b.id_tipo='$tipo';";
           if($result=mysqli_query($conexao,$sqlLogin)){
               $cont=mysqli_num_rows($result);
@@ -88,6 +88,11 @@ if (isset($_POST['entrar'])) {
                       </script>";
                       //Uma nova sessão de usuário é iniciada.
                         $_SESSION['AdmLog']= true;
+                        $exec=mysqli_query($conexao,$sqlLogin);
+                         while ($dados=mysqli_fetch_array($exec)){
+                           $_SESSION['Adm']= $dados['id_pessoa'] ;
+                         }
+
                         header("location:../administrador/home.php");
               }
               //echo "$cont";//variavel que ve se teve algum resultado
