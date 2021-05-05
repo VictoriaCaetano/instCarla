@@ -10,6 +10,7 @@ if (isset($_GET['AdmLogOut'])) {
 header("location:../index.php");
 session_destroy();
 }
+$idAdm=$_SESSION['Adm'];
 include '../conexao.php'; ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -29,6 +30,7 @@ include '../conexao.php'; ?>
         <button type="button" class="btn btn-dark" onclick="window.location.href='home.php'">voltar</button>
       </div>
       <form class="d-flex">
+        <button type="button" class="btn btn-dark" onclick="window.location.href='alterarPerfilAdmInstituicao.php'">perfil</button>
         <button type="button" name="sair"class="btn btn-dark" href="?AdmLogOut" ><a class="text-decoration-none text-white"href="?AdmLogOut">Sair</a></button>
 
      </form>
@@ -59,31 +61,39 @@ include '../conexao.php'; ?>
                 $querySelectAlunos =sprintf("select A.id_pessoa , B.nm_pessoa from tb_pessoacurso1 A, tb_pessoa B where B.id_pessoa=A.id_pessoa group by id_pessoa;");
                 $exec=mysqli_query($conexao,$querySelectAlunos);
                     while ($dados=mysqli_fetch_array($exec)) {
-                          $id=$dados['id_pessoa'];
                             echo "
                                   <div class='row'>
                                     <div class='card' style='width: 200rem;'>
                                         <div class='card-body text-start'>
-                                            <p class='text-end'>botão de editar (valor=id_aluno)</p>
+                                        <form action='alterarPerfilAluno.php' method='post'>
+                                        <div class='text-end'><button type='submit' value=".$dados['id_pessoa']." name='enviarID' class='btn btn-dark text-end' >editar</button></div>
+                                        </form>
+
                                             <div class='row'>
-                                                <div class='col-6 col-md-4'>".$dados['id_pessoa']."</div>
-                                                <div class='col-6 col-md-4'>".$dados['nm_pessoa']."</div>
+                                                <div class='col-6 col-md-4'><strong>Matricula: </strong>".$dados['id_pessoa']."</div>
+                                                <div class='col-6 col-md-4 display-6'>".$dados['nm_pessoa']."</div>
                                                 <div class='col-6 col-md-4'></div>
                                             </div>
-                            ";
+                            ";              $id=$dados['id_pessoa'];
                                                 $querySelectCursos =sprintf("select C.nm_curso , A.st_matricula from tb_pessoacurso1 A,  tb_curso1 C where A.id_curso=C.id_curso and A.id_pessoa='$id' GROUP BY C.nm_curso;");
                                                 $exec1=mysqli_query($conexao,$querySelectCursos);
                                                 while ($dados1=mysqli_fetch_array($exec1)) {
-                                                    echo "<div class='row'>
-                                                    <div class='col-sm-8'>".$dados1['nm_curso']."</div>
-                                                    <div class='col-sm-4'>".$dados1['st_matricula']."</div>
-                                                          </div>
+                                                  $matricula=$dados1['st_matricula'];
 
-                                                    ";
+                                                    echo "<div class='row'>
+                                                    <div class='col-sm-8 lead'>".$dados1['nm_curso']."</div>
+                                                  ";
+
+                                                  if ($matricula==1) {
+                                                  echo "<div class='col-sm-4 lead'>matriculado</div>
+                                                        </div>";
+                                                  }else  if($matricula==0){
+                                                    echo "<div class='col-sm-4 lead'>Desmatriculado</div>
+                                                          </div>";
+                                                  }
                                                 }
-                    echo                             "<div class='row'>
-                                                      <div class='text-end'>botão de excluir</div>
-                                                      </div>
+
+                    echo                             "
                                                 </div>
                                           </div>
                                       </div><br>
@@ -92,7 +102,6 @@ include '../conexao.php'; ?>
             ?>
 
           </div>
-
     </section>
 
 

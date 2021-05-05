@@ -9,7 +9,7 @@ if (isset($_GET['AdmLogOut'])) {
 header("location:../index.php");
 session_destroy();
 }
-
+$idAdm=$_SESSION['Adm'];
 include '../conexao.php'; ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -27,6 +27,7 @@ include '../conexao.php'; ?>
   <body>
     <nav class="navbar navbar-dark bg-dark">
       <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-dark" onclick="window.location.href='alterarPerfilAdmInstituicao.php'">perfil</button>
         <button type="button" class="btn btn-dark" onclick="window.location.href='homeAlunosAdm.php'">voltar</button>
       </div>
       <form class="d-flex">

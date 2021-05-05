@@ -14,7 +14,13 @@ $curso=24;
                                            if ($cont==0) {
                                               echo "0";
                                            }else {
-                                            echo "tem aluno";
+                                             echo "
+                                             <script>
+                                                     alert('Infelizmente este modulo não pode ser excluido porque existem alunos matriculados');
+                                                     window.location.href='homeCursosAdm.php';
+                                                   </script>
+                                             ";
+
                                            }
 
 

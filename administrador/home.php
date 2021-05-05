@@ -9,7 +9,7 @@ if (isset($_GET['AdmLogOut'])) {
 header("location:../index.php");
 session_destroy();
 }
-
+$idPessoa=$_SESSION['Adm'];
  include '../conexao.php';
 $posicao=0;
 $posicao1=0;
@@ -46,7 +46,7 @@ então ao verificar que a session não existe a página redireciona o mesmo
         <button type="button" class="btn btn-dark" onclick="window.location.href='homeCursosAdm.php'">Cursos</button>
       </div>
       <form class="d-flex">
-        <button type="button" class="btn btn-dark" onclick="window.location.href='teste.php'">perfil</button>
+        <button type="button" class="btn btn-dark" onclick="window.location.href='alterarPerfilAdmInstituicao.php'">perfil</button>
         <button type="button" name="sair"class="btn btn-dark" href="?AdmLogOut" ><a class="text-decoration-none text-white"href="?AdmLogOut">Sair</a></button>
 
      </form>

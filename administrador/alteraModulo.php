@@ -16,7 +16,7 @@ if (isset($_POST['modulo'])) {
   $modulo=$_POST['modulo'];
   echo "$modulo";
 }
-
+$idAdm=$_SESSION['Adm'];
 include '../conexao.php';
 ?>
 <!DOCTYPE html>
@@ -38,6 +38,7 @@ include '../conexao.php';
       <button type="button" class="btn btn-dark" onclick="window.location.href='homeCursosAdm.php'">voltar</button>
     </div>
     <form class="d-flex">
+      <button type="button" class="btn btn-dark" onclick="window.location.href='alterarPerfilAdmInstituicao.php'">perfil</button>
       <button type="button" name="sair"class="btn btn-dark" href="?AdmLogOut" ><a class="text-decoration-none text-white"href="?AdmLogOut">Sair</a></button>
 
    </form>

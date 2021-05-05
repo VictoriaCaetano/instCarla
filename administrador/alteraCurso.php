@@ -16,7 +16,7 @@ session_destroy();
  include '../conexao.php';
 
 $codigo=$_POST['codigo'];
-
+$idAdm=$_SESSION['Adm'];
 
 
 
@@ -47,6 +47,7 @@ $codigo=$_POST['codigo'];
       <button type="button" class="btn btn-dark" onclick="window.location.href='homeCursosAdm.php'">voltar</button>
     </div>
     <form class="d-flex">
+      <button type="button" class="btn btn-dark" onclick="window.location.href='alterarPerfilAdmInstituicao.php'">perfil</button>
       <button type="button" name="sair"class="btn btn-dark" href="?AdmLogOut" ><a class="text-decoration-none text-white"href="?AdmLogOut">Sair</a></button>
 
    </form>
@@ -158,9 +159,9 @@ $codigo=$_POST['codigo'];
                                                 $querySelectAula=sprintf("SELECT id_aula, nm_aula FROM tb_aula1 where id_modulo='$modulo';");
                                                         $exec3=mysqli_query($conexao,$querySelectAula);
                                                      while ($dados3=mysqli_fetch_array($exec3)) {
-                                                          echo  "
-                                                          <a class='link-dark' href='../index.php'> <h4 class='text-start href='../index.php'>".$dados3['nm_aula']."</h4> </a>
-                                                          ";
+                                                          echo  "  <form class='text-start' action='alteraAula.php' method='post'>
+                                                            <button type='submit'class='  btn btn-white text-start' name='aula' value=".$dados3['id_aula']."><p class='fs- fw-bold'>".$dados3['nm_aula']."</p></button>
+                                                          </form>";
                                                      }
                                       echo "
 
