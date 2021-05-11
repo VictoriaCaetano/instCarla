@@ -14,8 +14,11 @@ session_destroy();
 }
 
  include '../conexao.php';
+ if(isset($_POST['codigo'])){
+   $_SESSION['Curso']= $_POST['codigo'] ;
+ }
 
-$codigo=$_POST['codigo'];
+$codigo=$_SESSION['Curso'];
 $idAdm=$_SESSION['Adm'];
 
 
@@ -62,7 +65,8 @@ $idAdm=$_SESSION['Adm'];
      while ($dados=mysqli_fetch_array($exec)) {echo "  <h1 class='jumbotron-heading text-start'>".$dados['nm_curso']."</h2>
          <h3 class='text-dark  '>".$dados['intro_curso']."</h3><br>
                  <h3 class='text-muted'>".$dados['desc_curso']."</h3>
-                 <p class='text-start'>Carga Horária - ".$dados['ch_curso']." horas</p>";
+                 <p class='text-start'>Carga Horária - ".$dados['ch_curso']." horas</p>
+                 <p class='text-start'>Código- ".$dados['id_curso']."</p>";
                  $curso=$dados['nm_curso'];}
 
       ?>
@@ -87,7 +91,7 @@ $idAdm=$_SESSION['Adm'];
              if (isset($_POST['excluir'])) {
                  $id=$_POST['excluir'];
 
-                 $sqlCurso="  select id_curso from tb_pessoacurso1 where id_curso='$id'";
+                 $sqlCurso="  select id_curso from tb_pessoacurso1 where id_curso='$id' and st_matricula=1";
                   $x=mysqli_query($conexao,$sqlCurso);
                   $cont=mysqli_num_rows($x);
                   if ($cont==0) {
@@ -135,7 +139,7 @@ $idAdm=$_SESSION['Adm'];
                               echo "<tr><div class='col-sm-4'>
                                   <div class='card shadow-lg p-3'>
                                       <div class='card-body'>
-                                      <form class='text-end'action='teste.php' method='post'>
+                                      <form class='text-end'action='alteraCurso.php' method='post'>
                                       <button class='btn btn-danger' value=".$dados2['id_modulo']." name='excluirModulo' type='submit'>
                                           <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'>
                                           <path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'/>
@@ -145,7 +149,39 @@ $idAdm=$_SESSION['Adm'];
                                       </button>
                                       </form>";
 
+                                      if (isset($_POST['excluirModulo'])) {
+                                          $id5=$_POST['excluirModulo'];
 
+
+
+
+                                          $sql5="select id_curso from tb_pessoacurso1 where id_curso='$codigo' and st_matricula=1";
+                                           $resultado=mysqli_query($conexao,$sql5);
+                                           $cont=mysqli_num_rows($resultado);
+                                           if ($cont==0) {
+                                             $queryDeletModulo="DELETE FROM tb_modulo1 WHERE id_curso = '$codigo' and id_modulo='$id5';";
+                                             mysqli_query($conexao,$queryDeletModulo );
+                                             echo "
+                                             <script>
+                                                     alert('excluido');
+                                                     window.location.href='homeCursosAdm.php';
+                                                   </script>
+                                             ";
+
+                                           }else {
+                                             echo "
+                                             <script>
+                                                     alert('Infelizmente este modulo não pode ser excluido porque existem alunos matriculados');
+                                                     window.location.href='homeCursosAdm.php';
+                                                   </script>
+                                             ";
+
+                                           }
+
+
+
+
+                                      }
 
                                     echo "  <h5 class='card-title'>".$dados2['nm_modulo']."</h5>
                                        <p> código: - ".$dados2['id_modulo']."<p>

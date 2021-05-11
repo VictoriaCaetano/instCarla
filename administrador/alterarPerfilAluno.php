@@ -319,6 +319,17 @@ $idAdm=$_SESSION['Adm'];
     $curso=$_POST['curso'];
     $status=$_POST['situacao'];
 
+    $sqlPessoa="SELECT id_pessoa FROM tb_pessoacurso1 WHERE id_pessoa='$idPessoa' and id_curso='$curso';";
+    $result=mysqli_query($conexao,$sqlPessoa);
+     $cont=mysqli_num_rows($result);
+      if($cont==0){
+        $queryInsert="insert into  tb_pessoacurso1 (id_pessoa, st_matricula, id_curso) values ('$idPessoa', '$status','$curso');";
+         mysqli_query($conexao,$queryInsert);
+    }
+
+  
+
+
     $queryUpdate="UPDATE tb_pessoacurso1 set st_matricula = '$status'
      where id_pessoa='$idPessoa' and id_curso='$curso';";
      mysqli_query($conexao,$queryUpdate);

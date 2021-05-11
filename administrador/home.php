@@ -64,7 +64,7 @@ então ao verificar que a session não existe a página redireciona o mesmo
                       <tr>
                           <th scope="col"></th>
                           <th scope="col">Curso</th>
-                          <th scope="col">numero de acessos</th>
+                          <th scope="col">Acessos</th>
                       </tr>
                   </thead>
                   <tbody>
@@ -98,7 +98,7 @@ então ao verificar que a session não existe a página redireciona o mesmo
                   </thead>
                   <tbody>
 
-                      <?php   $querySelect =sprintf("SELECT count(A.id_pessoa) C, B.nm_curso from tb_pessoacurso1 A, tb_curso1 B GROUP by B.nm_curso DESC LIMIT 5;");
+                      <?php   $querySelect =sprintf("SELECT count(A.id_pessoa) C, B.nm_curso from tb_pessoacurso1 A, tb_curso1 B  where A.st_matricula=1 and A.id_curso=B.id_curso GROUP by B.nm_curso LIMIT 5;");
                               $exec=mysqli_query($conexao,$querySelect);
                               while ($dados=mysqli_fetch_array($exec)) {
                               $posicao1=$posicao1+1;

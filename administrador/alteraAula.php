@@ -37,11 +37,11 @@ include '../conexao.php';
    <nav class="navbar navbar-dark bg-dark">
      <div class="btn-group" role="group" aria-label="Basic example">
 
-       <button type="button" class="btn btn-dark" onclick="window.location.href='home.php'">voltar</button>
+       <button type="button" class="btn btn-dark" onclick="window.location.href='homeCursosAdm.php'">voltar</button>
      </div>
      <form class="d-flex">
-       <button type="button" class="btn btn-dark" onclick="window.location.href='teste.php'">perfil</button>
-       <button type="button" name="sair"class="btn btn-dark" href="?AlunoLogOut" ><a class="text-decoration-none text-white"href="?AlunoLogOut">Sair</a></button>
+       <button type="button" class="btn btn-dark" onclick="window.location.href='alterarPerfilAdmInstituicao.php'">perfil</button>
+       <button type="button" name="sair"class="btn btn-dark" href="?AlunoLogOut" ><a class="text-decoration-none text-white"href="?AdmLogOut">Sair</a></button>
 
     </form>
    </nav>
@@ -49,26 +49,32 @@ include '../conexao.php';
      <div class="container">
        <div class="row">
          <div class="text-end">
-           <button type='button' class='btn btn-dark' data-bs-toggle='modal' data-bs-target='#exampleModal1'>editar video aula
+           <button type='button' class='btn btn-dark' data-bs-toggle='modal' data-bs-target='#exampleModal1'>video aula
            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'>
            <path d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z'/>
            </svg>
            </button>
-           <button type='button' class='btn btn-dark' data-bs-toggle='modal' data-bs-target='#exampleModal1'> + adicionar material
+           <button type='button' class='btn btn-dark' data-bs-toggle='modal' data-bs-target='#exampleModal3'> Nome
+             <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'>
+             <path d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z'/>
+             </svg>
+           </button>
+           <button type='button' class='btn btn-dark' data-bs-toggle='modal' data-bs-target='#exampleModal4'>Descrição
+           <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'>
+           <path d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z'/>
+           </svg>
+           </button>
+           <button type='button' class='btn btn-dark' data-bs-toggle='modal' data-bs-target='#exampleModal2'>+ material
 
            </button>
+
          </div>
         <div class="col-md-8">
           <?php $querySelectAula =sprintf("SELECT nm_aula FROM tb_aula1 where id_aula='$aula';");
                    $exec3=mysqli_query($conexao,$querySelectAula);
 
                    while ($dados3=mysqli_fetch_array($exec3)) {
-                     echo "<h2 class='text-start'>".$dados3['nm_aula']."
-                     <button type='button' class='btn btn-white' data-bs-toggle='modal' data-bs-target='#exampleModal1'>
-                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'>
-                     <path d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z'/>
-                     </svg>
-                     </button> </h2>
+                     echo "<h2 class='text-start'>".$dados3['nm_aula']."</h2>
                      ";
                    } ?>
 
@@ -90,13 +96,13 @@ include '../conexao.php';
          ?>
        </div>
        <div class="col-4 bg-white text-start"><br><br>
-         <div class="row">
+
            <?php
            $querySelectMaterial =sprintf("SELECT id_material, link_material, desc_material FROM tb_material1 where id_aula='$aula';");
                     $exec4=mysqli_query($conexao,$querySelectMaterial);
 
                     while ($dados4=mysqli_fetch_array($exec4)) {
-                       echo "  <div class='col'>
+                       echo "  <div class='row'><div class='col'>
                           <a href=../material/".$dados4['link_material'].">".$dados4['desc_material']."</a>
                          </div>
 
@@ -109,7 +115,7 @@ include '../conexao.php';
                               </svg>
                           </button>
                           </form>
-                         </div>";
+                         </div></div>";
                          if (isset($_POST['excluir'])) {
                            $idMaterial=$_POST['excluir'];
                            $queryDelet="DELETE FROM tb_material1 WHERE id_material = '$idMaterial';";
@@ -119,7 +125,7 @@ include '../conexao.php';
 
                     ?>
 
-  </div>
+
 
        </div>
      </div>
@@ -139,11 +145,7 @@ include '../conexao.php';
 
 
     <div class="col col-lg-2">
-      <button type='button' class='btn btn-white text-end' data-bs-toggle='modal' data-bs-target='#exampleModal3'>
-      <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'>
-      <path d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z'/>
-      </svg>
-      </button>
+
     </div>
   </div>
 
@@ -157,9 +159,27 @@ include '../conexao.php';
 
    </section>
 
+   <div class="container bg-dark">
+    <h3 class='text-white'>comentarios</h3>
+    </div>
+    <section>
+      <div class="container">
 
+        <div class="row">
+       <div class="col">
+  <?php   $querySelectComentario =sprintf("SELECT B.id_comentario, A.nm_pessoa, B.text_comentario FROM tb_comentario B, tb_pessoa A where A.id_pessoa= B.id_pessoa and B.id_aula='$aula';");
+              $exec5=mysqli_query($conexao,$querySelectComentario);
 
+              while ($dados5=mysqli_fetch_array($exec5)) {
+                echo "
+                  <h6>".$dados5['nm_pessoa']."</h6>
 
+                  <p>".$dados5['text_comentario']."</p>
+                  ";}
+               ?>
+</div>
+</div>
+</div>
 <footer>
  <section  style="background:#DBB522;" class="jumbotron text-center">
    <div class="container">
@@ -168,4 +188,172 @@ include '../conexao.php';
  </section>
 </footer>
  </body>
+ <!--modal alterar Video-->
+ <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Alterar Video Aula</h5>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body">
+         <form class="" action="alteraAula.php" method="post" enctype="multipart/form-data">
+           <div class="mb-3">
+             <label for="formFileSm" class="form-label"></label>
+             <input class="form-control form-control-sm"  type="file" name="arquivo" required>
+             <p>apenas arquivos mp4, até 500Mb e de resolução 640*360 ou mais</p>
+           </div>
+           <button  class=" btn-dark"type="submit" name="enviarVideo">alterar Video</button>
+         </form>
+         <?php if (isset($_POST['enviarVideo'])) {
+
+           $extensao = strtolower(substr($_FILES['arquivo']['name'], -4)); //pega a extensao do arquivo
+           $novo_nome = md5(time()) . $extensao; //define o nome do arquivo
+           $diretorio = "../videos/"; //define o diretorio para onde enviaremos o arquivo
+
+           move_uploaded_file($_FILES['arquivo']['tmp_name'], $diretorio.$novo_nome); //efetua o upload
+
+           $sql_code = "INSERT INTO tb_arquivo (codigo, arquivo, data) VALUES(null, '$novo_nome', NOW())";
+           mysqli_query($conexao,$sql_code);
+
+           $queryUpdate="UPDATE tb_aula1 set video_aula  = '$novo_nome'
+            where id_aula='$aula';";
+            mysqli_query($conexao,$queryUpdate);
+
+         } ?>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ <!--modal adicionar material-->
+ <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Alterar Video Aula</h5>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body">
+         <form class="" action="alteraAula.php" method="post" enctype="multipart/form-data" >
+           <div class="mb-3">
+             <label for="formFileSm" class="form-label"></label>
+             <input class="form-control form-control-sm"  type="file" name="arquivo" required >
+             <p> imagens e documentos permitidos</p>
+            <input class="form-control form-control-sm"  type="text" name="descricao" required >
+           </div>
+           <button  class=" btn-dark"type="submit" name="enviarMaterial">adicionar</button>
+         </form>
+         <?php if (isset($_POST['enviarMaterial'])) {
+           $descricao=$_POST['descricao'];
+           $sql="select desc_material from tb_material1 where id_aula='$aula' and desc_material='$descricao';";
+
+           $result=mysqli_query($conexao,$sql);
+            $cont=mysqli_num_rows($result);
+             if($cont==0){
+
+               $extensao = strtolower(substr($_FILES['arquivo']['name'], -4)); //pega a extensao do arquivo
+               $novo_nome = md5(time()) . $extensao; //define o nome do arquivo
+               $diretorio = "../material/"; //define o diretorio para onde enviaremos o arquivo
+
+               move_uploaded_file($_FILES['arquivo']['tmp_name'], $diretorio.$novo_nome); //efetua o upload
+
+               $sql_code = "INSERT INTO tb_arquivo (codigo, arquivo, data) VALUES(null, '$novo_nome', NOW())";
+               mysqli_query($conexao,$sql_code);
+
+               $queryUpdate="INSERT INTO `tb_material1`( `link_material`, `id_aula`, `desc_material`) VALUES ('$novo_nome','$aula','$descricao')";
+                mysqli_query($conexao,$queryUpdate);
+                echo "<meta HTTP-EQUIV='refresh' CONTENT='5;URL=alteraAula.php'>";
+             }
+
+
+         }
+         ?>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ <!--modal alterar nome-->
+ <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Alterar Nome</h5>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body">
+         <form class="" action="alteraAula.php" method="post">
+           <div class="mb-3">
+             <label for="formFileSm" class="form-label"></label>
+
+            <input class="form-control form-control-sm"  type="text" name="nome" required >
+           </div>
+           <button  class=" btn-dark"type="submit" name="enviarNome">Alterar</button>
+         </form>
+         <?php if (isset($_POST['enviarNome'])) {
+           $nome=$_POST['nome'];
+           $sql="select nm_aula from tb_aula1 where id_aula='$aula' and nm_aula='$nome';";
+
+           $result=mysqli_query($conexao,$sql);
+            $cont=mysqli_num_rows($result);
+             if($cont==0){
+               $update="UPDATE `tb_aula1` SET `nm_aula`='$nome' where id_aula='$aula';";
+               mysqli_query($conexao,$update);
+                 echo "<meta HTTP-EQUIV='refresh' CONTENT='5;URL=alteraAula.php'>";
+             }
+
+
+         }
+         ?>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ <!--modal alterar Descricao-->
+ <div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel4" aria-hidden="true">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Alterar Descrição</h5>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body">
+         <form class="" action="alteraAula.php" method="post">
+           <div class="mb-3">
+             <label for="formFileSm" class="form-label"></label>
+             <textarea name="descricao" rows="8" cols="60"required></textarea>
+
+           </div>
+           <button  class=" btn-dark"type="submit" name="enviarDescricao">Alterar</button>
+         </form>
+         <?php if (isset($_POST['enviarDescricao'])) {
+           $desc=$_POST['descricao'];
+           $sql="select desc_aula from tb_aula1 where id_aula='$aula' and desc_aula='$desc';";
+
+           $result=mysqli_query($conexao,$sql);
+            $cont=mysqli_num_rows($result);
+             if($cont==0){
+               $update="UPDATE `tb_aula1` SET `desc_aula`='$desc' where id_aula='$aula';";
+               mysqli_query($conexao,$update);
+                 echo "<meta HTTP-EQUIV='refresh' CONTENT='5;URL=alteraAula.php'>";
+             }
+
+
+         }
+         ?>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+       </div>
+     </div>
+   </div>
+ </div>
 </html>
