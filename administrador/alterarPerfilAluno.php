@@ -53,7 +53,7 @@ $idAdm=$_SESSION['Adm'];
             <div class="row">
              <div class="col">
               <?php
-              $imagem="select imagem_usuario from tb_usuario where id_pessoa='$idPessoa'";
+              $imagem="select imagem_usuario from tb_usuario1 where id_pessoa='$idPessoa'";
               $result=$conexao->query($imagem);
                while($dados2 = $result->fetch_assoc()){
                    echo "  <img class='card-img-top' src='../imagens/".$dados2['imagem_usuario']."'  height='300' alt='300'>";
@@ -72,7 +72,7 @@ $idAdm=$_SESSION['Adm'];
                <div class="my-3 p-3">
                  <div class="row">
                    <?php
-                   $selectPerfil="select B.id_pessoa, B.cpf_pessoa, A.user_usuario, B.em_pessoa from tb_pessoa B, tb_usuario A where B.id_pessoa=A.id_pessoa and B.id_pessoa='$idPessoa' ";
+                   $selectPerfil="select B.id_pessoa, B.cpf_pessoa, A.user_usuario, B.em_pessoa from tb_pessoa B, tb_usuario1 A where B.id_pessoa=A.id_pessoa and B.id_pessoa='$idPessoa' ";
                    $resultado=$conexao->query($selectPerfil);
                     while($dados = $resultado->fetch_assoc()){
                       echo "<div class='col-md-auto'>
@@ -199,7 +199,7 @@ $idAdm=$_SESSION['Adm'];
           <?php if (isset($_POST['enviaUsuario'])) {
             $usuario=$_POST['NovoUsuario'];
 
-            $queryUpdateUsuario="UPDATE tb_usuario set user_usuario = '$usuario'
+            $queryUpdateUsuario="UPDATE tb_usuario1 set user_usuario = '$usuario'
              where id_pessoa='$idPessoa';";
 
              mysqli_query($conexao,$queryUpdateUsuario);
@@ -262,7 +262,7 @@ $idAdm=$_SESSION['Adm'];
             $confirma=$_POST['ConfirmaSenha'];
 
             if ($nova==$confirma) {
-              $queryUpdate="UPDATE tb_usuario set sn_usuario = '$nova'
+              $queryUpdate="UPDATE tb_usuario1 set sn_usuario = '$nova'
                where id_pessoa='$idPessoa' and sn_usuario='$atual';";
                mysqli_query($conexao,$queryUpdate);
             }
@@ -303,7 +303,7 @@ $idAdm=$_SESSION['Adm'];
             $sql_code = "INSERT INTO tb_arquivo (codigo, arquivo, data) VALUES(null, '$novo_nome', NOW())";
             mysqli_query($conexao,$sql_code);
 
-            $queryUpdate="UPDATE tb_usuario set imagem_usuario = '$novo_nome'
+            $queryUpdate="UPDATE tb_usuario1 set imagem_usuario = '$novo_nome'
              where id_pessoa='$idPessoa';";
              mysqli_query($conexao,$queryUpdate);
 
@@ -327,7 +327,7 @@ $idAdm=$_SESSION['Adm'];
          mysqli_query($conexao,$queryInsert);
     }
 
-  
+
 
 
     $queryUpdate="UPDATE tb_pessoacurso1 set st_matricula = '$status'

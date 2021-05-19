@@ -142,7 +142,7 @@ if (isset($_POST['Enviar'])) {
  $curso=$_POST['curso'];
 
 
-            $sqlPessoa="SELECT nm_pessoa FROM tb_pessoa WHERE nm_pessoa='$nome';";
+            $sqlPessoa="SELECT cpf_pessoa FROM tb_pessoa WHERE cpf_pessoa='$cpf';";
             $result=mysqli_query($conexao,$sqlPessoa);
              $cont=mysqli_num_rows($result);
               if($cont==0){
@@ -170,10 +170,10 @@ if (isset($_POST['Enviar'])) {
                                VALUES ('$id','$curso','1')";
                               $v4= mysqli_query($conexao,$queryPessoaCurso);
 
-                              $tipoPessoa="INSERT INTO `tb_tipopessoa`(`id_pessoa`, `id_tipo`) VALUES ('$id','2')";
+                              $tipoPessoa="INSERT INTO `tb_tipopessoa1`(`id_pessoa`, `id_tipo`) VALUES ('$id','2')";
                               $v2=mysqli_query($conexao,$tipoPessoa);
 
-                              $v3=$usuario="INSERT INTO `tb_usuario`(`user_usuario`, `sn_usuario`, `id_pessoa`, `pergunta1`, `pergunta2`, `pergunta3`,`imagem_usuario`)
+                              $v3=$usuario="INSERT INTO `tb_usuario1`(`user_usuario`, `sn_usuario`, `id_pessoa`, `pergunta1`, `pergunta2`, `pergunta3`,`imagem_usuario`)
                               VALUES ('$user','$senha','$id','$p1','$p2','$p3','$novo_nome')";
                               $x= mysqli_query($conexao,$usuario);
                             }
