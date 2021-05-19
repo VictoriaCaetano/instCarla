@@ -87,7 +87,6 @@ $curso=$_POST['codigo'];
                       <div class='card-body'>
 
                       <h5 class='card-title'>".$dados2['nm_modulo']."</h5>
-                       <p> código: - ".$dados2['id_modulo']."<p>
                           <p>".$dados2['desc_modulo']."<p><br>_______________________
                           ";
 

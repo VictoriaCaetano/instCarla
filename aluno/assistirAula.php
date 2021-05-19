@@ -138,7 +138,7 @@ $aula=$_SESSION['aula'];
         <?php
 
 
-        $querySelectComentario =sprintf("SELECT A.nm_pessoa, B.text_comentario FROM tb_comentario B, tb_pessoa A where A.id_pessoa='$idPessoa' and B.id_pessoa='$idPessoa' and B.id_aula='$aula';");
+        $querySelectComentario =sprintf("SELECT A.nm_pessoa, B.text_comentario FROM tb_comentario B, tb_pessoa A where A.id_pessoa= B.id_pessoa and B.id_aula='$aula';");
                   $exec1=mysqli_query($conexao,$querySelectComentario);
 
                   while ($dados1=mysqli_fetch_array($exec1)) {
@@ -149,11 +149,22 @@ $aula=$_SESSION['aula'];
 
 
                   if (isset($_POST['EnviarNcomentario'])) {
-                        $comentario=$_POST['Ncomentario'];
-                        $pessoa=$idPessoa;
 
-                        $sqlInsertComentario="insert into tb_comentario (text_comentario, id_pessoa, id_aula) values ('$comentario','$pessoa', '$aula');";
-                        mysqli_query($conexao,$sqlInsertComentario);
+
+
+                        $comentario=$_POST['Ncomentario'];
+                          $pessoa=$idPessoa;
+                        $sql2="select id_comentario from tb_comentario where id_aula='$aula' and id_pessoa='$idPessoa' and text_comentario='$comentario';";
+
+                        $result2=mysqli_query($conexao,$sql2);
+                         $cont2=mysqli_num_rows($result2);
+                          if($cont2==0){
+
+
+                            $sqlInsertComentario="insert into tb_comentario (text_comentario, id_pessoa, id_aula) values ('$comentario','$pessoa', '$aula');";
+                            mysqli_query($conexao,$sqlInsertComentario);
+                          }
+
 
 
                     }
