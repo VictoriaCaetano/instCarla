@@ -12,7 +12,7 @@ include '../conexao.php'; ?>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>pagina inicial do Site</title>
+    <title>Login Usuário</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -73,7 +73,7 @@ if ((isset($_POST['entrar'])) && (isset($_POST['tipo']))) {
       $tipo=$_POST['tipo'];
 
             if ($tipo==1) {
-              $sqlLogin="SELECT sn_usuario, user_usuario from tb_usuario A, tb_tipopessoa B where user_usuario='$usuario' and sn_usuario='$senha' AND
+              $sqlLogin="SELECT sn_usuario, user_usuario from tb_usuario1 A, tb_tipopessoa1 B where user_usuario='$usuario' and sn_usuario='$senha' AND
 B.id_pessoa=A.id_pessoa and b.id_tipo=1;";
                 if($result=mysqli_query($conexao,$sqlLogin)){
                     $cont=mysqli_num_rows($result);
@@ -92,7 +92,7 @@ B.id_pessoa=A.id_pessoa and b.id_tipo=1;";
                   echo "$cont";
                 }
             }else if ($tipo==2) {
-              $sqlLogin="SELECT A.sn_usuario, A.user_usuario, A.id_pessoa from tb_usuario A, tb_tipopessoa B where user_usuario='$usuario' and sn_usuario='$senha' AND
+              $sqlLogin="SELECT A.sn_usuario, A.user_usuario, A.id_pessoa from tb_usuario1 A, tb_tipopessoa1 B where user_usuario='$usuario' and sn_usuario='$senha' AND
 B.id_pessoa=A.id_pessoa and b.id_tipo=2;";
 
 

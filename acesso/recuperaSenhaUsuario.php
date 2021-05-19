@@ -70,7 +70,7 @@
     $confirmaSenha=$_POST['ConfirmaSenha'];
 
     if($novaSenha==$confirmaSenha){
-      $queryUpdate="UPDATE tb_usuario A, tb_pessoa B set A.sn_usuario = '$novaSenha'
+      $queryUpdate="UPDATE tb_usuario1 A, tb_pessoa B set A.sn_usuario = '$novaSenha'
        where A.id_pessoa=B.id_pessoa AND
        B.em_pessoa='$email' AND
        B.cpf_pessoa='$cpf'AND
@@ -80,7 +80,7 @@
 
        mysqli_query($conexao,$queryUpdate);
 
-       $queryselect="select sn_usuario from tb_usuario where sn_usuario='$novaSenha';";
+       $queryselect="select sn_usuario from tb_usuario1 where sn_usuario='$novaSenha';";
         $x=mysqli_query($conexao,$queryselect);
         $cont=mysqli_num_rows($x);
          if($cont==0){
